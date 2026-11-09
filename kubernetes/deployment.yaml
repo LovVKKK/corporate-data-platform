@@ -2,8 +2,15 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: corporate-data-deployment
+  annotations:
+    kubernetes.io/change-cause: "Release 2.2.0"
 spec:
   replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
   selector:
     matchLabels:
       app: corporate-data-app
@@ -11,10 +18,12 @@ spec:
     metadata:
       labels:
         app: corporate-data-app
+      annotations:
+        app-version: "2.2.0"
     spec:
       containers:
         - name: corporate-data-app
-          image: corporate-data-app:2.0
+          image: ghcr.io/lovvkkk/corporate-data-platform:2.2.0
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000
