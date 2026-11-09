@@ -63,7 +63,7 @@ class PlatformHandler(BaseHTTPRequestHandler):
                 <h1>Corporate Data Platform</h1>
                 <h2>Корпоративная платформа обработки данных</h2>
                 <p>Статус приложения: работает</p>
-                <p>Версия приложения: 2.0</p>
+                <p>Версия приложения: 2.1</p>
                 <p>Контейнеризация: Docker</p>
                 <p>Источник данных: PostgreSQL</p>
                 <h3>Организации</h3>
