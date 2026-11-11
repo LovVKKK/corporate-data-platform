@@ -33,6 +33,31 @@ services:
     depends_on:
       db:
         condition: service_healthy
+  airflow:
+    image: apache/airflow:3.1.0
+    container_name: corporate-airflow
+    depends_on:
+      - db
+    environment:
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__CORE__DAGS_FOLDER: "/opt/airflow/dags"
+      AIRFLOW__CORE__EXECUTOR: "LocalExecutor"
+      DB_HOST: "db"
+      DB_PORT: "5432"
+      DB_NAME: "corporate"
+      DB_USER: "corporate_user"
+      DB_PASSWORD: "corporate_password"
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./airflow/logs:/opt/airflow/logs
+      - ./airflow/output:/opt/airflow/output
+    ports:
+      - "8081:8080"
+    command: >
+      bash -c "
+      pip install --no-cache-dir 'psycopg[binary]' &&
+      airflow standalone
+      "
 
 volumes:
   postgres_data:
