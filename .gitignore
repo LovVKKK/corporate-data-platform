@@ -45,6 +45,7 @@ airflow/logs/
 # Data (keep directory structure)
 data/raw/*
 !data/raw/.gitkeep
+!data/raw/companies.csv
 data/processed/*
 !data/processed/.gitkeep
 
